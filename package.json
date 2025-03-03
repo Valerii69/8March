@@ -2,7 +2,7 @@
   "name": "my-app",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://Valerii69.github.io/8March/",
+  "homepage": "https://valerii69.github.io/8March/",
   "type": "module",
   "scripts": {
     "dev": "vite",
