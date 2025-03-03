@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
 import { gsap } from "gsap"; // GSAP для анимации
 import Typed from "typed.js"; // Typed.js для текста
-import Carpet from "../public/carpetSmoll.png"
+import Carpet from "./carpetSmoll.png"
 
 function App() {
   const petalsRef = useRef(null);
