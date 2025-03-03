@@ -1,10 +1,9 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  /* color: rgba(255, 255, 255, 0.87); */
   background-color: #242424;
 
   font-synthesis: none;
@@ -12,57 +11,132 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+html,
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
+  background: #fdfdfd;
+  overflow: hidden;
+  perspective: 800px;
+  font-family: "Caveat", cursive;
+}
+
+.dot {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  background: url("public/petal.png");
+  background-size: 100% 100%;
+}
+
+#petals {
+  width: 100%;
+  height: 100%;
+}
+#scene {
+  perspective: 800px;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+#card {
+  width: 800px;
+  height: 460px;
+  padding: 10px 15px;
+
+  border-radius: 10px;
+  border:
+    1px,
+    solid brown;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+
+  transform-style: preserve-3d;
+  opacity: 0;
+  background-color: #f6dae9;
+  box-shadow: 0 0 20px rgba(245, 136, 136, 0.499);
+
+  transform: translate3d(-40%, -50%, 0) rotateY(20deg);
+  animation: card 5s linear 2s forwards;
+}
+#greeting {
+  margin-bottom: 10px;
+  text-decoration: underline;
+
+  background-image: linear-gradient(110deg, #c64675 0%, #b8261c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  color: #ff6945;
+  font-size: 50px;
+  line-height: 1;
+  text-align: center;
+}
+#text {
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+
+  background: linear-gradient(100deg, #792e38 0%, #850602 100%);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* color: #ffe2ea; */
+  font-size: 35px;
+  line-height: 1.2;
+
+  transform: translateZ(50px); /* Элемент выйдет вперед */
+}
+#author {
+  background-image: linear-gradient(110deg, #ff6945 0%, #8047ca 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  color: #121212;
+  font-size: 30px;
+  text-align: right;
+
+  transition: opacity 1s ease-in-out;
+
+  font-size: 16px;
+  color: gray;
+  transition: opacity 0.5s ease-in-out;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#author[style*="opacity: 1"] + #carpet {
+  opacity: 1;
+  bottom: 0; /* Поднимаем вверх */
+}
+#carpet {
+  width: 100%;
+  max-width: 500px; /* Ограничиваем размер */
+  position: absolute;
+  bottom: -100px; /* Скрыто за пределами экрана */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition:
+    opacity all 3s ease-in-out,
+    bottom all 3s ease-in-out;
+}
+#carpet.show {
+  opacity: 1;
+  bottom: 0; /* Поднимаем вверх */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@keyframes card {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) rotateY(50deg);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) rotateY(10deg); /* Уменьшаем угол поворота */
   }
 }
