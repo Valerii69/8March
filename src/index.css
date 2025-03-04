@@ -108,11 +108,13 @@ body {
   -webkit-text-fill-color: transparent;
   opacity: 0;
   color: #121212;
-  font-size: 30px;
+  font-size: 100px;
   text-align: right;
 
   transition: opacity 1s ease-in-out;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
   color: gray;
   transition: opacity 0.5s ease-in-out;
@@ -123,20 +125,18 @@ body {
   bottom: 0; /* Поднимаем вверх */
 }
 #carpet {
-  width: 100%;
-  max-width: 500px; /* Ограничиваем размер */
+  width: 200px;
+  max-width: 200px;
   position: absolute;
-  bottom: -100px; /* Скрыто за пределами экрана */
+  bottom: -100px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(100px);
   opacity: 0;
-  transition:
-    opacity all 3s ease-in-out,
-    bottom all 3s ease-in-out;
+  transition: opacity 3s ease-in-out, transform 3s ease-in-out;
 }
 #carpet.show {
   opacity: 1;
-  bottom: 0; /* Поднимаем вверх */
+  transform: translateX(-50%) translateY(10);
 }
 
 @keyframes card {

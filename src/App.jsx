@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
-import { gsap } from "gsap"; // GSAP для анимации
-import Typed from "typed.js"; // Typed.js для текста
-import Carpet from "./carpetSmoll.png"
+import { gsap } from "gsap"; // GSAP для анімації
+import Typed from "typed.js"; // Typed.js для тексту
+import Carpet from "./carpetSmoll.png"; // Імпорт зображення
 
 function App() {
   const petalsRef = useRef(null);
   const textRef = useRef(null);
   const authorRef = useRef(null);
-  const [showCarpet, setShowCarpet] = useState(false); // состояние для ковра
+  const carpetRef = useRef(null); // 👈 Додаємо ref для килима
+  const [showCarpet, setShowCarpet] = useState(false); // Стан для килима
 
   useEffect(() => {
     const warp = petalsRef.current;
@@ -61,12 +62,14 @@ function App() {
       return min + Math.random() * (max - min);
     }
 
-    // Анимация текста Typed.js
+    // Анімація тексту Typed.js
     if (textRef.current) {
       const typed = new Typed(textRef.current, {
-        strings: ["З 8 березня вітаю! <br> Вибач, квітів не дарю, <br> Від душі поздоровляю <br> І листа тобі я шлю. <br>В ньому просто все й красиво,<br> Теплота моїх думок,<br> Хочу, щоб жила щасливо, <br> Найпрекрасніша з жінок."],
+        strings: [
+          "З 8 березня вітаю! <br> Вибач, квітів не дарю, <br> Від душі поздоровляю <br> І листа тобі я шлю. <br>В ньому просто все й красиво,<br> Теплота моїх думок,<br> Хочу, щоб жила щасливо, <br> Найпрекрасніша з жінок.",
+        ],
         startDelay: 3000,
-        typeSpeed: 80,
+        typeSpeed: 50,
         backSpeed: 0,
         fadeOut: true,
         loop: false,
@@ -74,7 +77,7 @@ function App() {
         onComplete: function () {
           if (authorRef.current) {
             authorRef.current.style.opacity = 1;
-            setTimeout(() => setShowCarpet(true), 1000); // показываем ковер через 1 сек
+            setShowCarpet(true); // Вмикаємо килим після тексту
           }
         },
       });
@@ -83,12 +86,21 @@ function App() {
     }
   }, []);
 
+  // Додаємо клас "show" після рендеру килима
+  useEffect(() => {
+    if (showCarpet && carpetRef.current) {
+      requestAnimationFrame(() => {
+        carpetRef.current.classList.add("show");
+      });
+    }
+  }, [showCarpet]);
+
   return (
     <div>
-      {/* Контейнер для лепестков */}
+      {/* Контейнер для пелюсток */}
       <div id="petals" ref={petalsRef}></div>
 
-      {/* Блок для анимации текста */}
+      {/* Блок для анімації тексту */}
       <div id="scene">
         <div id="card">
           <p id="greeting">Люба, з 8 березня!</p>
@@ -96,10 +108,14 @@ function App() {
             <span id="text" ref={textRef}></span>
           </p>
           <p id="author" ref={authorRef} style={{ opacity: 0 }}>
-            З любовью Валера
+            З любов'ю Валера
           </p>
-          {/* Ковер появляется после автора */}
-          {showCarpet && <img id="carpet" src={Carpet} alt="Carpet" />}
+          {/* Килим з’являється після тексту */}
+          {showCarpet && (
+            <div id="carpet" ref={carpetRef} >
+              <img src={Carpet} alt="Carpet" />
+            </div>
+          )}
         </div>
       </div>
     </div>
