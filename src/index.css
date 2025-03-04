@@ -43,8 +43,8 @@ body {
   align-items: center;
 }
 #card {
-  width: 800px;
-  height: 460px;
+  width: 500px;
+  height: 660px;
   padding: 10px 15px;
 
   border-radius: 10px;
@@ -59,7 +59,11 @@ body {
 
   transform-style: preserve-3d;
   opacity: 0;
-  background-color: #f6dae9;
+  background:url("assets/pngwing.png") no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+  background-color: #fff;
+ 
   box-shadow: 0 0 20px rgba(245, 136, 136, 0.499);
 
   transform: translate3d(-40%, -50%, 0) rotateY(20deg);
@@ -79,8 +83,13 @@ body {
   text-align: center;
 }
 #text {
+  display: flex;
   margin-bottom: 20px;
+  margin-left: 80px;
+  margin-right: auto;
   padding-bottom: 5px;
+
+  /* justify-content:center ; */
 
   background: linear-gradient(100deg, #792e38 0%, #850602 100%);
 
