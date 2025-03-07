@@ -18,7 +18,6 @@ body {
   margin: 0;
   background-image: url("assets/forYou.png");
   background-size: contain;
-  /* background: #d2c4c4; */
   overflow: hidden;
   perspective: 800px;
   font-family: "Caveat", cursive;
@@ -26,6 +25,7 @@ body {
 audio {
   height: 25px;
   color-scheme: light;
+  margin-top: 0;
 }
 .dot {
   width: 35px;
@@ -55,7 +55,7 @@ audio {
   border-radius: 10px;
   border:
     1px,
-    solid brown;
+    solid gold;
 
   position: absolute;
   top: 50%;

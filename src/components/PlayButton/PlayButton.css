@@ -1,4 +1,3 @@
-
 .button {
   position: absolute;
   top: 50%;
@@ -35,7 +34,6 @@
   top: 0;
   right: -20px;
   transition: 0.5s;
-  
 }
 
 .button:hover span {
