@@ -7,11 +7,11 @@ import Shubinio from "/Shubinio.mp3";
 import PlayButton from "../src/components/PlayButton/PlayButton";
 import textContent from "../src/components/TextContent/TextContent";
 
-const TOTAL_PETALS = 50;
+const TOTAL_PETALS = 60;
 
 function App() {
   const [showCarpet, setShowCarpet] = useState(false);
-  const [startAnimation, setStartAnimation] = useState(false); // Новий стан для відстеження гри
+  const [startAnimation, setStartAnimation] = useState(false); // стан для відстеження анімації
 
   const petalsRef = useRef(null);
   const textRef = useRef(null);
@@ -167,13 +167,5 @@ export default App;
 Так само і жінка: буває вродлива,
 Буває примхлива, буває чутлива,
 Нехай тільки кожна з них буде щаслива!
-/////////////////
-Нехай тендітні пахощі троянд
-Навіють щастя, ніжність і кохання,
-Хай здійснює бажання зорепад
-І втілює у дійсність сподівання!
-Хай вам вдається все — вдень і вночі,
-Хай очі посміхаються натхненно,
-І смак життя, і молодість душі
-Нехай для вас тривають нескінченно!
 */
+
