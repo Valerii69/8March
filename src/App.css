@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  box-shadow: inset 0 0 1em gold;
 }
 
 .logo {
@@ -35,6 +36,7 @@
 
 .card {
   padding: 2em;
+   box-shadow:  0 0 1em gold;
 }
 
 .read-the-docs {

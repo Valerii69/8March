@@ -4,16 +4,19 @@ import { gsap } from "gsap";
 import Typed from "typed.js";
 import Carpet from "./carpetSmoll.png";
 import Shubinio from "/Shubinio.mp3";
+import PlayButton from "../src/components/PlayButton/PlayButton";
+import textContent from "../src/components/TextContent/TextContent";
 
 const TOTAL_PETALS = 50;
 
 function App() {
+  const [showCarpet, setShowCarpet] = useState(false);
+  const [startAnimation, setStartAnimation] = useState(false); // Новий стан для відстеження гри
+
   const petalsRef = useRef(null);
   const textRef = useRef(null);
   const authorRef = useRef(null);
   const carpetRef = useRef(null);
-  const [showCarpet, setShowCarpet] = useState(false);
-  const [startAnimation, setStartAnimation] = useState(false); // New state to track play
   const carpetSound = useRef(new Audio(Shubinio));
 
   useEffect(() => {
@@ -24,7 +27,7 @@ function App() {
       createPetals(petalsRef.current, TOTAL_PETALS);
       animateText();
     }
-  }, [startAnimation]); //Trigger when startAnimation changes 
+  }, [startAnimation]); //Запускається, коли startAnimation змінюється
 
   useEffect(() => {
     if (showCarpet && carpetRef.current) {
@@ -36,8 +39,6 @@ function App() {
         );
         carpetRef.current.classList.add("show");
       });
-
-      playCarpetSound();
     }
   }, [showCarpet]);
 
@@ -92,9 +93,7 @@ function App() {
     if (!textRef.current) return;
 
     const typed = new Typed(textRef.current, {
-      strings: [
-        "Нехай тендітні пахощі троянд<br> Навіють щастя, ніжність і кохання,<br>Хай здійснює бажання зорепад<br> І втілює у дійсність сподівання! <br>Нехай тобі вдається все — вдень, вночі,<br> Хай очі посміхаються натхненно,<br> І смак життя, і молодість душі <br>Нехай для тебе тривають нескінченно!",
-      ],
+      strings: textContent,
       startDelay: 3000,
       typeSpeed: 5,
       fadeOut: true,
@@ -109,45 +108,35 @@ function App() {
     return () => typed.destroy();
   }
 
-  function playCarpetSound() {
-    const playAudio = () => {
-      carpetSound.current
-        .play()
-        .catch((error) => console.log("Автовідтворення заблоковано:", error));
-      document.removeEventListener("click", playAudio);
-    };
+  // function playCarpetSound() {
+  //   const playAudio = () => {
+  //     carpetSound.current
+  //       .play()
+  //       .catch((error) => console.log("Автовідтворення заблоковано:", error));
+  //   };
 
-    document.addEventListener("click", playAudio);
-  }
+  //   document.addEventListener("click", playAudio);
+  // }
 
   function random(min, max) {
     return min + Math.random() * (max - min);
   }
 
   function handlePlayClick() {
-    setStartAnimation(true); // Trigger animation and content visibility after click
+    setStartAnimation(true); // Запуск анімації та видимості вмісту після кліка
   }
 
   return (
     <div>
-      {/* Show the play button initially */}
-      <button className="button" onClick={handlePlayClick}>
-        <span>Тиць сюди </span>
-      </button>
-
-      {/* Show the audio controls only after clicking play */}
+      <PlayButton onClick={handlePlayClick} />
       {startAnimation && (
         <>
-          <figure>
-            <figcaption>Listen :</figcaption>
-            <audio controls src={Shubinio} autoPlay></audio>
-          </figure>
-
-          {/* The petals and scene are only shown after play */}
           <div id="petals" ref={petalsRef}></div>
+
           <div id="scene">
             <div id="card">
-              <p id="greeting">Люба, з 8 березня!</p>
+              <audio controls src={Shubinio} autoPlay></audio>
+              <p id="greeting">Серденько, з 8 березня!</p>
               <p>
                 <span id="text" ref={textRef}></span>
               </p>
