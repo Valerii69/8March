@@ -1,126 +1,168 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
-import { gsap } from "gsap"; // GSAP для анімації
-import Typed from "typed.js"; // Typed.js для тексту
-import Carpet from "./carpetSmoll.png"; // Імпорт зображення
+import { gsap } from "gsap";
+import Typed from "typed.js";
+import Carpet from "./carpetSmoll.png";
+import Shubinio from "/Shubinio.mp3";
+
+const TOTAL_PETALS = 50;
 
 function App() {
   const petalsRef = useRef(null);
   const textRef = useRef(null);
   const authorRef = useRef(null);
-  const carpetRef = useRef(null); // 👈 Додаємо ref для килима
-  const [showCarpet, setShowCarpet] = useState(false); // Стан для килима
+  const carpetRef = useRef(null);
+  const [showCarpet, setShowCarpet] = useState(false);
+  const [startAnimation, setStartAnimation] = useState(false); // New state to track play
+  const carpetSound = useRef(new Audio(Shubinio));
 
   useEffect(() => {
-    const warp = petalsRef.current;
-    const total = 50;
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    if (!petalsRef.current) return;
 
-    if (!warp) return;
-
-    for (let i = 0; i < total; i++) {
-      const div = document.createElement("div");
-      gsap.set(div, {
-        attr: { class: "dot" },
-        x: R(0, w),
-        y: R(-200, -150),
-        z: R(-200, 200),
-      });
-      warp.appendChild(div);
-      animm(div, h);
+    if (startAnimation) {
+      preloadAudio();
+      createPetals(petalsRef.current, TOTAL_PETALS);
+      animateText();
     }
+  }, [startAnimation]); //Trigger when startAnimation changes 
 
-    function animm(elm, h) {
-      gsap.to(elm, {
-        duration: R(6, 15),
-        y: h + 100,
-        ease: "none",
-        repeat: -1,
-        delay: -15,
-      });
-      gsap.to(elm, {
-        duration: R(4, 8),
-        x: "+=100",
-        rotationZ: R(0, 180),
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-      gsap.to(elm, {
-        duration: R(2, 8),
-        rotationX: R(0, 360),
-        rotationY: R(0, 360),
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: -5,
-      });
-    }
-
-    function R(min, max) {
-      return min + Math.random() * (max - min);
-    }
-
-    // Анімація тексту Typed.js
-    if (textRef.current) {
-      const typed = new Typed(textRef.current, {
-        // strings: [
-        //   "З 8 березня вітаю! <br> Вибач, квітів не дарю, <br> Від душі поздоровляю <br> І листа тобі я шлю. <br>В ньому просто все й красиво,<br> Теплота моїх думок,<br> Хочу, щоб жила щасливо, <br> Найпрекрасніша з жінок.",
-        // ],
-        strings: [
-          "Нехай тендітні пахощі троянд<br> Навіють щастя, ніжність і кохання,<br>Хай здійснює бажання зорепад<br> І втілює у дійсність сподівання! <br>Нехай тобі вдається все — вдень, вночі,<br> Хай очі посміхаються натхненно,<br> І смак життя, і молодість душі <br>Нехай для тебе тривають  нескінченно!",
-        ],
-        startDelay: 3000,
-        typeSpeed: 50,
-        backSpeed: 0,
-        fadeOut: true,
-        loop: false,
-        showCursor: false,
-        onComplete: function () {
-          if (authorRef.current) {
-            authorRef.current.style.opacity = 1;
-            setShowCarpet(true); // Вмикаємо килим після тексту
-          }
-        },
-      });
-
-      return () => typed.destroy();
-    }
-  }, []);
-
-  // Додаємо клас "show" після рендеру килима
   useEffect(() => {
     if (showCarpet && carpetRef.current) {
       requestAnimationFrame(() => {
+        gsap.fromTo(
+          carpetRef.current,
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }
+        );
         carpetRef.current.classList.add("show");
       });
+
+      playCarpetSound();
     }
   }, [showCarpet]);
 
+  function preloadAudio() {
+    carpetSound.current.load();
+  }
+
+  function createPetals(container, total) {
+    const { innerWidth: w, innerHeight: h } = window;
+
+    for (let i = 0; i < total; i++) {
+      const div = document.createElement("div");
+      div.className = "dot";
+      gsap.set(div, {
+        x: random(0, w),
+        y: random(-200, -150),
+        z: random(-200, 200),
+      });
+      container.appendChild(div);
+      animatePetal(div, h);
+    }
+  }
+
+  function animatePetal(elm, height) {
+    gsap.to(elm, {
+      duration: random(6, 15),
+      y: height + 100,
+      ease: "none",
+      repeat: -1,
+      delay: -15,
+    });
+    gsap.to(elm, {
+      duration: random(4, 8),
+      x: "+=100",
+      rotationZ: random(0, 180),
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+    gsap.to(elm, {
+      duration: random(2, 8),
+      rotationX: random(0, 360),
+      rotationY: random(0, 360),
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: -5,
+    });
+  }
+
+  function animateText() {
+    if (!textRef.current) return;
+
+    const typed = new Typed(textRef.current, {
+      strings: [
+        "Нехай тендітні пахощі троянд<br> Навіють щастя, ніжність і кохання,<br>Хай здійснює бажання зорепад<br> І втілює у дійсність сподівання! <br>Нехай тобі вдається все — вдень, вночі,<br> Хай очі посміхаються натхненно,<br> І смак життя, і молодість душі <br>Нехай для тебе тривають нескінченно!",
+      ],
+      startDelay: 3000,
+      typeSpeed: 5,
+      fadeOut: true,
+      loop: false,
+      showCursor: false,
+      onComplete: () => {
+        if (authorRef.current) authorRef.current.style.opacity = 1;
+        setShowCarpet(true);
+      },
+    });
+
+    return () => typed.destroy();
+  }
+
+  function playCarpetSound() {
+    const playAudio = () => {
+      carpetSound.current
+        .play()
+        .catch((error) => console.log("Автовідтворення заблоковано:", error));
+      document.removeEventListener("click", playAudio);
+    };
+
+    document.addEventListener("click", playAudio);
+  }
+
+  function random(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function handlePlayClick() {
+    setStartAnimation(true); // Trigger animation and content visibility after click
+  }
+
   return (
     <div>
-      {/* Контейнер для пелюсток */}
-      <div id="petals" ref={petalsRef}></div>
+      {/* Show the play button initially */}
+      <button className="button" onClick={handlePlayClick}>
+        <span>Тиць сюди </span>
+      </button>
 
-      {/* Блок для анімації тексту */}
-      <div id="scene">
-        <div id="card">
-          <p id="greeting">Люба, з 8 березня!</p>
-          <p>
-            <span id="text" ref={textRef}></span>
-          </p>
-          <p id="author" ref={authorRef} style={{ opacity: 0 }}>
-            З любов'ю Валера
-          </p>
-          {/* Килим з’являється після тексту */}
-          {showCarpet && (
-            <div id="carpet" ref={carpetRef} >
-              <img src={Carpet} alt="Carpet" />
+      {/* Show the audio controls only after clicking play */}
+      {startAnimation && (
+        <>
+          <figure>
+            <figcaption>Listen :</figcaption>
+            <audio controls src={Shubinio} autoPlay></audio>
+          </figure>
+
+          {/* The petals and scene are only shown after play */}
+          <div id="petals" ref={petalsRef}></div>
+          <div id="scene">
+            <div id="card">
+              <p id="greeting">Люба, з 8 березня!</p>
+              <p>
+                <span id="text" ref={textRef}></span>
+              </p>
+              <p id="author" ref={authorRef} style={{ opacity: 0 }}>
+                З любов'ю Валера
+              </p>
+              {showCarpet && (
+                <div id="carpet" ref={carpetRef}>
+                  <img src={Carpet} alt="Carpet" />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
