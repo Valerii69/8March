@@ -93,7 +93,7 @@ audio {
   margin-left: auto;
   margin-right: auto;
 
-  text-indent: 1em;
+  /* text-indent: 1em; */
 
   background: linear-gradient(100deg, #792e38 0%, #850602 100%);
 
@@ -101,7 +101,7 @@ audio {
   -webkit-text-fill-color: transparent;
 
   /* color: #ffe2ea; */
-  font-size: 25px;
+  font-size: 24px;
   line-height: 1.2;
 
   transform: translateZ(50px); /* Элемент выйдет вперед */

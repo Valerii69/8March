@@ -95,7 +95,7 @@ function App() {
     const typed = new Typed(textRef.current, {
       strings: textContent,
       startDelay: 3000,
-      typeSpeed: 5,
+      typeSpeed: 50,
       fadeOut: true,
       loop: false,
       showCursor: false,
@@ -107,16 +107,6 @@ function App() {
 
     return () => typed.destroy();
   }
-
-  // function playCarpetSound() {
-  //   const playAudio = () => {
-  //     carpetSound.current
-  //       .play()
-  //       .catch((error) => console.log("Автовідтворення заблоковано:", error));
-  //   };
-
-  //   document.addEventListener("click", playAudio);
-  // }
 
   function random(min, max) {
     return min + Math.random() * (max - min);
@@ -135,9 +125,7 @@ function App() {
 
           <div id="scene">
             <div id="card">
-           
-              <audio controls src={Shubinio} autoPlay></audio>
-              {" "}
+              <audio controls src={Shubinio} autoPlay></audio>{" "}
               <p id="greeting">Серденько, з 8 березня!</p>
               <p>
                 <span id="text" ref={textRef}></span>
