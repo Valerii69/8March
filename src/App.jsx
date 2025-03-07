@@ -135,7 +135,9 @@ function App() {
 
           <div id="scene">
             <div id="card">
+           
               <audio controls src={Shubinio} autoPlay></audio>
+              {" "}
               <p id="greeting">Серденько, з 8 березня!</p>
               <p>
                 <span id="text" ref={textRef}></span>
