@@ -3,7 +3,7 @@ import "./index.css";
 import { gsap } from "gsap";
 import Typed from "typed.js";
 import Carpet from "./carpetSmoll.png";
-import Shubinio from "/Shubinio.mp3";
+import Shubinio from "/RoxanaAlo.mp3";
 import PlayButton from "../src/components/PlayButton/PlayButton";
 import textContent from "../src/components/TextContent/TextContent";
 
@@ -95,7 +95,7 @@ function App() {
     const typed = new Typed(textRef.current, {
       strings: textContent,
       startDelay: 3000,
-      typeSpeed: 50,
+      typeSpeed: 46,
       fadeOut: true,
       loop: false,
       showCursor: false,
@@ -131,7 +131,7 @@ function App() {
                 <span id="text" ref={textRef}></span>
               </p>
               <p id="author" ref={authorRef} style={{ opacity: 0 }}>
-                З любов'ю Валера
+                Цемки, Валера!
               </p>
               {showCarpet && (
                 <div id="carpet" ref={carpetRef}>
