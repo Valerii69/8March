@@ -3,7 +3,7 @@ import "./index.css";
 import { gsap } from "gsap";
 import Typed from "typed.js";
 import Carpet from "./carpetSmoll.png";
-import Shubinio from "/RoxanaAlo.mp3";
+import Shubinio from "/Duck.mp3";
 import PlayButton from "../src/components/PlayButton/PlayButton";
 import textContent from "../src/components/TextContent/TextContent";
 
@@ -126,7 +126,8 @@ function App() {
           <div id="scene">
             <div id="card">
               <audio controls src={Shubinio} autoPlay></audio>{" "}
-              <p id="greeting">Серденько, з 8 березня!</p>
+              <p id="greeting"><span>Сонечко,</span>
+  <span>з 8 березня!</span></p>
               <p>
                 <span id="text" ref={textRef}></span>
               </p>
